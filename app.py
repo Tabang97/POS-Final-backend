@@ -108,7 +108,7 @@ def show_records():
                                     # =====DELETE THE USERS=====
 
 
-@app.route('/delete-users/<int:users_id>/', methods=["GET"])
+@app.route('/delete-users/<int:users_id>/', methods=["DELETE"])
 def delete_users(users_id):
     msg = None
     try:
@@ -179,7 +179,7 @@ def show_products():
 # ======================================================================================================================
 
 # =====DELETE THE PRODUCTS=====
-@app.route('/delete-products/<int:products_id>/', methods=["GET"])
+@app.route('/delete-products/<int:products_id>/', methods=["DELETE"])
 def delete_products(products_id):
     msg = None
     try:
@@ -220,6 +220,27 @@ def btn_click():
             con.close(msg)
             return jsonify(products)
 
+# ======================================================================================================================
+#                                     ========UPDATE========
+
+@app.route('/edit-products/<int:product_id>/', methods=["PUT"])
+def edit_items(product_id):
+    post_data = request.get_json()
+
+    records = {
+        'id': product_id,
+        'products': post_data['name'],
+        'type': post_data['type'],
+        'quantity': post_data['quantity'],
+        'prices': post_data['price']
+    }
+    # LINKING DATABASE
+    con = sqlite3.connect('database.db')
+    cur = con.cursor()
+    sql = ("UPDATE Products SET products = ?, type = ?, quantity = ?, prices = ? WHERE id = ?")
+    cur.execute(sql, (records['products'], records['type'], records['quantity'], records['prices'], records['id']))
+    con.commit()
+    return jsonify(records)
 
 if __name__ == "__main__":
     app.run(debug=True)
