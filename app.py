@@ -202,7 +202,7 @@ def delete_products(products_id):
                                             # ======GET PRODUCTS EACH======!!!
 
 
-@app.route('/button-click/', methods=['GET'])
+@app.route('/button-click/', methods=['POST'])
 def btn_click():
     products = {}
     if request.method == "POST":
@@ -221,7 +221,7 @@ def btn_click():
             con.rollback()
             msg = "There was an error fetching results from the database." + str(e)
         finally:
-            con.close(msg)
+            con.close()
             return jsonify(products)
 
 # ======================================================================================================================
