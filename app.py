@@ -221,7 +221,7 @@ def btn_click():
             return jsonify(products)
 
 # ======================================================================================================================
-#                                     ========UPDATE========
+#                                     ========UPDATE ITEMS========
 
 @app.route('/edit-products/<int:product_id>/', methods=["PUT"])
 def edit_items(product_id):
@@ -241,6 +241,28 @@ def edit_items(product_id):
     cur.execute(sql, (records['products'], records['type'], records['quantity'], records['prices'], records['id']))
     con.commit()
     return jsonify(records)
+# ======================================================================================================================
+#                                     ========UPDATE ITEMS========
+
+
+@app.route('/edit-users/<int:user_id>/', methods=["PUT"])
+def edit_users(user_id):
+    post_data = request.get_json()
+
+    user_records = {
+        'id': user_id,
+        'user': post_data['user'],
+        'role': post_data['role'],
+        'password': post_data['password'],
+    }
+    # LINKING DATABASE
+    con = sqlite3.connect('database.db')
+    cur = con.cursor()
+    sql = ("UPDATE Products SET Users = ?, user = ?, role = ?, password = ? WHERE id = ?")
+    cur.execute(sql, (user_records['user'], user_records['role'], user_records['password'], user_records['id']))
+    con.commit()
+    return jsonify(user_records)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
