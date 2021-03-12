@@ -66,7 +66,7 @@ def add_new_record():
 @app.route('/log/', methods=['GET'])
 def login():
     records = {}
-    if request.method == "POST":
+    if request.method == "GET":
         msg = None
         try:
             post_data = request.get_json()
@@ -77,14 +77,14 @@ def login():
                 cur = con.cursor()
                 sql = "SELECT * FROM Users WHERE user = ? and password = ?"
                 cur.execute(sql, [user, password])
-                records = cur.fetchall()
+                # records = cur.fetchall()
 
         except Exception as e:
             con.rollback()
             msg = "error occured while fetching data from db" + str(e)
         finally:
             con.close()
-            return jsonify(records)
+            return jsonify(msg=msg)
 # ======================================================================================================================
                                                 # =====SHOWING USERS RECORDS=====
 
@@ -105,7 +105,7 @@ def show_records():
         con.close()
         return jsonify(records)
 # ======================================================================================================================
-                                    # =====DELETE THE USERS=====
+                                    # =====DELETE THE USERS!!!=====
 
 
 @app.route('/delete-users/<int:users_id>/', methods=["DELETE"])
@@ -124,7 +124,7 @@ def delete_users(users_id):
         con.close()
         return jsonify(msg)
 # ----------------------------------------------------------------------------------------------------------------------
-                                        # ===== ADDING NEW PRODUCTS=====
+                                        # ===== ADDING NEW PRODUCTS!!!=====
 
 
 @app.route('/')
@@ -158,7 +158,8 @@ def add_new_products():
             con.close()
             return jsonify(msg)
 # ======================================================================================================================
-                                        # =====SHOW ALL PRODUCTS=====
+                                        # =====SHOW ALL PRODUCTS!!!=====
+
 
 @app.route('/show-products/', methods=['GET'])
 def show_products():
@@ -178,7 +179,9 @@ def show_products():
         return jsonify(records)
 # ======================================================================================================================
 
-# =====DELETE THE PRODUCTS=====
+# ==                                    ===DELETE THE PRODUCTS!!!=====
+
+
 @app.route('/delete-products/<int:products_id>/', methods=["DELETE"])
 def delete_products(products_id):
     msg = None
@@ -221,7 +224,7 @@ def btn_click():
             return jsonify(products)
 
 # ======================================================================================================================
-#                                     ========UPDATE ITEMS========
+#                                     ========UPDATE ITEMS!!!========
 
 @app.route('/edit-products/<int:product_id>/', methods=["PUT"])
 def edit_items(product_id):
@@ -242,7 +245,7 @@ def edit_items(product_id):
     con.commit()
     return jsonify(records)
 # ======================================================================================================================
-#                                     ========UPDATE ITEMS========
+#                                     ========UPDATE USERS!!!========
 
 
 @app.route('/edit-users/<int:user_id>/', methods=["PUT"])
