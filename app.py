@@ -143,6 +143,7 @@ def add_new_products():
             prod_type = post_data['type']
             quantity = post_data['quantity']
             prices = post_data['price']
+            print(products, prices)
             with sqlite3.connect('database.db') as con:
                 cur = con.cursor()
                 cur.execute("INSERT INTO Products (products, type, quantity, prices) VALUES (?, ?, ?, ?)",
