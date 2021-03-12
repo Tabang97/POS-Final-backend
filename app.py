@@ -208,13 +208,13 @@ def btn_click():
     if request.method == "POST" or request.method == "GET":
         msg = None
         try:
-            post_data = request.get_json()
-            prod_type = post_data['type']
+            # post_data = request.get_json()
+            # prod_type = post_data['type']
 
             with sqlite3.connect('database.db') as con:
                 cur = con.cursor()
-                sql = "SELECT * FROM products WHERE type = ?"
-                cur.execute(sql, [prod_type])
+                sql = "SELECT * FROM products"
+                cur.execute(sql)
                 products = cur.fetchall()
 
         except Exception as e:
