@@ -212,6 +212,7 @@ def btn_click():
             # prod_type = post_data['type']
 
             with sqlite3.connect('database.db') as con:
+                con.row_factory = dict_factory
                 cur = con.cursor()
                 sql = "SELECT * FROM products"
                 cur.execute(sql)
