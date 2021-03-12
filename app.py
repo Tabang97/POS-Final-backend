@@ -208,8 +208,6 @@ def btn_click():
     if request.method == "POST" or request.method == "GET":
         msg = None
         try:
-            # post_data = request.get_json()
-            # prod_type = post_data['type']
 
             with sqlite3.connect('database.db') as con:
                 con.row_factory = dict_factory
