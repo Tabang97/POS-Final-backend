@@ -205,7 +205,7 @@ def delete_products(products_id):
 @app.route('/button-click/', methods=['GET', 'POST'])
 def btn_click():
     products = {}
-    if request.method == "POST":
+    if request.method == "POST" or request.method == "GET":
         msg = None
         try:
             post_data = request.get_json()
