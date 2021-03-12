@@ -202,7 +202,7 @@ def delete_products(products_id):
                                             # ======GET PRODUCTS EACH======!!!
 
 
-@app.route('/button-click/', methods=['POST'])
+@app.route('/button-click/', methods=['GET', 'POST'])
 def btn_click():
     products = {}
     if request.method == "POST":
